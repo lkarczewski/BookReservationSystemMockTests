@@ -1,7 +1,7 @@
 # projekt2-lkarczewski
 Jest to repozytorium z użyciem GitFlow.
 
-Projekt 5 (18 pkt)
+## Projekt 5 (18 pkt)
 
 Przetestuj system rezerwacji z poprzedniego projektu, zakładając, że wszystko odbywa się w jakimś systemie bazodanowym. Na przykład mogą się zdarzyć następujące sytuacje:
 
