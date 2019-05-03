@@ -10,7 +10,6 @@ public class ReservedBook {
     private User user;
     private Book book;
     private Date dateOfReservation;
-    private String dateFormat = "dd.MM.yyyy";
 
     public ReservedBook(String reservationId, User user, Book book, Date dateOfReservation) {
         this.reservationId = reservationId;
@@ -41,6 +40,7 @@ public class ReservedBook {
 
     @Override
     public String toString() {
+        String dateFormat = "dd.MM.yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
 
         return "[" + reservationId + "]" + book.getTitle() + " reserved by: " + user.getLogin() + " at " +
