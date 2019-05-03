@@ -12,4 +12,6 @@ public interface IBookRepository {
     void deleteBook(int id);
     void updateBook(int id, Book book);
     boolean validateBook(Book book);
+    boolean bookExists(int id);
+    boolean bookExists(String title);
 }

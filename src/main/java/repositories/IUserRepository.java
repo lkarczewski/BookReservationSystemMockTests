@@ -13,4 +13,6 @@ public interface IUserRepository {
     void deleteUser(int id);
     void updateUser(int id, User user);
     boolean validateUser(User user);
+    boolean userExists(int id);
+    boolean userExists(String login);
 }

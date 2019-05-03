@@ -13,6 +13,12 @@ public class User {
         this.password = password;
     }
 
+    public User(int id, User user) {
+        this.id = id;
+        this.login = user.getLogin();
+        this.password = user.getPassword();
+    }
+
     public int getId() {
         return id;
     }
