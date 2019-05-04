@@ -76,6 +76,17 @@ public class UserTests {
         });
     }
 
+    @Test
+    void updateExistingUserWithValidDataReturnsTrue() {
+        doReturn(true).when(userRepository).userExists(1);
+        doReturn(true).when(userRepository).validateUser(any(User.class));
+        doReturn(user).when(userRepository).getUser(1);
+        doReturn(user).when(userRepository).getUser(user.getLogin());
+
+        boolean result = service.updateUser(1, "login", "password");
+        assertThat(result).isTrue();
+    }
+
     @AfterEach
     void tearDown() {
         userRepository = null;
