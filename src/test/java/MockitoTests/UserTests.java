@@ -67,6 +67,15 @@ public class UserTests {
         assertThat(result).isTrue();
     }
 
+    @Test
+    void deleteNonExistingUserThrowsIllegalArgumentException() {
+        doReturn(false).when(userRepository).userExists(1);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.deleteUser(1);
+        });
+    }
+
     @AfterEach
     void tearDown() {
         userRepository = null;
