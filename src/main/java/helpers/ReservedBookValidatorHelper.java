@@ -1,4 +1,4 @@
-package validators;
+package helpers;
 
 import models.ReservedBook;
 
