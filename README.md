@@ -1,9 +1,8 @@
 # projekt2-lkarczewski
 Jest to repozytorium z użyciem GitFlow.
+### Travis CI [![Build Status](https://travis-ci.com/testowanieaplikacjijavaug/projekt2-lkarczewski.svg?token=1GLazZGrwXcNFBLzNe2m&branch=master)](https://travis-ci.com/testowanieaplikacjijavaug/projekt2-lkarczewski)
 
 ## Projekt 5 (18 pkt)
-
-### Travis CI [![Build Status](https://travis-ci.com/testowanieaplikacjijavaug/projekt2-lkarczewski.svg?token=1GLazZGrwXcNFBLzNe2m&branch=master)](https://travis-ci.com/testowanieaplikacjijavaug/projekt2-lkarczewski)
 
 Przetestuj system rezerwacji z poprzedniego projektu, zakładając, że wszystko odbywa się w jakimś systemie bazodanowym. Na przykład mogą się zdarzyć następujące sytuacje:
 
