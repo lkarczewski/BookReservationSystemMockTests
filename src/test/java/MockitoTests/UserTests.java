@@ -59,7 +59,13 @@ public class UserTests {
         assertThat(result).isFalse();
     }
 
+    @Test
+    void deleteExistingUserReturnsTrue() {
+        doReturn(true).when(userRepository).userExists(1);
 
+        boolean result = service.deleteUser(1);
+        assertThat(result).isTrue();
+    }
 
     @AfterEach
     void tearDown() {
@@ -67,5 +73,6 @@ public class UserTests {
         bookRepository = null;
         reservedBookRepository = null;
         service = null;
+        user = null;
     }
 }
