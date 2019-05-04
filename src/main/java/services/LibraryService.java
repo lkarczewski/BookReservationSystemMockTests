@@ -8,17 +8,19 @@ import models.User;
 import repositories.IBookRepository;
 import repositories.IReservedBookRepository;
 import repositories.IUserRepository;
-import sun.nio.ch.LinuxAsynchronousChannelProvider;
 
-import javax.naming.spi.ResolveResult;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 public class LibraryService {
 
     private IUserRepository userRepository;
     private IBookRepository bookRepository;
     private IReservedBookRepository reservedBookRepository;
+    private String dbPath = "src/main/resources/db.txt";
 
     public LibraryService(IUserRepository userRepository, IBookRepository bookRepository,
                           IReservedBookRepository reservedBookRepository) {
@@ -139,6 +141,32 @@ public class LibraryService {
 
     public List<Book> getBooks() {
         return bookRepository.getBooks();
+    }
+
+    public int loadBooksFromFile() throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File(dbPath));
+        String line[], title, author, genre, description;
+        int errors = 0;
+
+        while(scanner.hasNextLine()) {
+            try {
+                line = scanner.nextLine().split(";");
+                title = line[0];
+                author = line[1];
+                genre = line[2];
+                description = line[3];
+
+                Book newBook = new Book(title, author, genre, description);
+                if(!bookRepository.validateBook(newBook)) {
+                    continue;
+                }
+            } catch (Exception e) {
+                errors++;
+                continue;
+            }
+        }
+        scanner.close();
+        return errors;
     }
 
     public String booksToString() {
