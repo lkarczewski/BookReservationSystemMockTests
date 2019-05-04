@@ -29,7 +29,7 @@ Pod ocenę będą brane pod uwagę następujące elementy:
 Ponadto, jako punkty dodatkowe będą brane następujące elementy:
 
   (2 pkt) Inne technologie dotyczące atrap, nie pokazywane na zajęciach (co najmniej po 5 testów każda z nich).
-  (1 pkt) Użycie GitFlow https://danielkummer.github.io/git-flow-cheatsheet/
+  (1 pkt) Użycie GitFlow [https://danielkummer.github.io/git-flow-cheatsheet/]
 
 Ponadto pod ocenę jest brane również: (Brak tych elementów: -1 pkt za podpunkt od obowiązkowej punktacji zadania!)
 
