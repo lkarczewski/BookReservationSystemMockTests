@@ -1,3 +1,5 @@
+package MockitoTests;
+
 import models.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
-public class MockitoTest {
+public class UserTests {
 
     private IUserRepository userRepository;
     private IBookRepository bookRepository;
@@ -56,6 +58,8 @@ public class MockitoTest {
         boolean result = service.addUser(user.getLogin(), user.getPassword());
         assertThat(result).isFalse();
     }
+
+
 
     @AfterEach
     void tearDown() {
