@@ -2,7 +2,7 @@ package helpers;
 
 import models.User;
 
-public class UserValidator {
+public class UserValidatorHelper {
 
     public static boolean validate(User user) {
         if(user.getLogin() == null || user.getLogin().isEmpty() || user.getLogin().length() > 20 ||

@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateParser {
+public class DateParserHelper {
     private static String dateFormat = "dd.MM.yyyy";
 
     public static Date parseDate(String date) {

@@ -2,7 +2,7 @@ package helpers;
 
 import models.Book;
 
-public class BookValidator {
+public class BookValidatorHelper {
 
     public static boolean validate(Book book) {
         if(book.getTitle() == null || book.getTitle().isEmpty() || book.getTitle().length() > 50 ||

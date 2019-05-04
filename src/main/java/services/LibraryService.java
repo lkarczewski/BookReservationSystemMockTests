@@ -1,7 +1,7 @@
 package services;
 
-import helpers.DateParser;
-import helpers.ReservationIdGenerator;
+import helpers.DateParserHelper;
+import helpers.ReservationIdGeneratorHelper;
 import models.Book;
 import models.ReservedBook;
 import models.User;
@@ -190,8 +190,8 @@ public class LibraryService {
             throw new SecurityException("Book with given id:" + bookId + " does not exists!");
         }
 
-        String reservationId = ReservationIdGenerator.generateReservationId(userId, bookId, dateOfReservation);
-        Date dateObj = DateParser.parseDate(dateOfReservation);
+        String reservationId = ReservationIdGeneratorHelper.generateReservationId(userId, bookId, dateOfReservation);
+        Date dateObj = DateParserHelper.parseDate(dateOfReservation);
         ReservedBook reservedBook = new ReservedBook(userId, bookId, dateObj, reservationId);
 
         if(!reservedBookRepository.validateReservation(reservedBook)) {
