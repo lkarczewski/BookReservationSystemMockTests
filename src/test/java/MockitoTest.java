@@ -9,18 +9,19 @@ import repositories.IUserRepository;
 import services.LibraryService;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
 public class MockitoTest {
 
-    IUserRepository userRepository;
-    IBookRepository bookRepository;
-    IReservedBookRepository reservedBookRepository;
-    LibraryService service;
+    private IUserRepository userRepository;
+    private IBookRepository bookRepository;
+    private IReservedBookRepository reservedBookRepository;
+    private LibraryService service;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         userRepository = Mockito.mock(IUserRepository.class);
         bookRepository = Mockito.mock(IBookRepository.class);
         reservedBookRepository = Mockito.mock(IReservedBookRepository.class);
@@ -28,7 +29,7 @@ public class MockitoTest {
     }
 
     @Test
-    public void addValidUserReturnsTrue() {
+    void addValidUserReturnsTrue() {
         User user = new User();
 
         doReturn(false).when(userRepository).userExists(user.getLogin());
@@ -38,9 +39,21 @@ public class MockitoTest {
 
         assertThat(result).isTrue();
     }
-    
+
+    @Test
+    void addInvalidUserThrowsException() {
+        User user = new User();
+
+        doReturn(false).when(userRepository).userExists(user.getLogin());
+        doReturn(false).when(userRepository).validateUser(any(User.class));
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.addUser(user.getLogin(), user.getPassword());
+        });
+    }
+
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         userRepository = null;
         bookRepository = null;
         reservedBookRepository = null;
