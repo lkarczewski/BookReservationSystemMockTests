@@ -5,8 +5,7 @@ import models.ReservedBook;
 public class ReservedBookValidator {
 
     public boolean validate(ReservedBook reservedBook) {
-        if(reservedBook.getReservationId().isEmpty() || reservedBook.getUser() == null ||
-                reservedBook.getBook() == null || reservedBook.getDateOfReservation() == null) {
+        if(reservedBook.getReservationId() == null||reservedBook.getReservationId().isEmpty()) {
             return false;
         }
         return true;
