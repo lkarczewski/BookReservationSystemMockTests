@@ -19,6 +19,7 @@ public class MockitoTest {
     private IBookRepository bookRepository;
     private IReservedBookRepository reservedBookRepository;
     private LibraryService service;
+    private User user;
 
     @BeforeEach
     void setUp() {
@@ -26,30 +27,34 @@ public class MockitoTest {
         bookRepository = Mockito.mock(IBookRepository.class);
         reservedBookRepository = Mockito.mock(IReservedBookRepository.class);
         service = new LibraryService(userRepository, bookRepository, reservedBookRepository);
+        user = new User();
     }
 
     @Test
     void addValidUserReturnsTrue() {
-        User user = new User();
-
         doReturn(false).when(userRepository).userExists(user.getLogin());
         doReturn(true).when(userRepository).validateUser(any(User.class));
 
         boolean result = service.addUser(user.getLogin(), user.getPassword());
-
         assertThat(result).isTrue();
     }
 
     @Test
-    void addInvalidUserThrowsException() {
-        User user = new User();
-
+    void addInvalidUserThrowsIllegalArgumentException() {
         doReturn(false).when(userRepository).userExists(user.getLogin());
         doReturn(false).when(userRepository).validateUser(any(User.class));
 
         assertThrows(IllegalArgumentException.class, () -> {
             service.addUser(user.getLogin(), user.getPassword());
         });
+    }
+
+    @Test
+    void addValidUserLoginAlreadyExistsReturnsFalse() {
+        doReturn(true).when(userRepository).userExists(user.getLogin());
+
+        boolean result = service.addUser(user.getLogin(), user.getPassword());
+        assertThat(result).isFalse();
     }
 
     @AfterEach
