@@ -11,6 +11,7 @@ public interface IReservedBookRepository {
     void addReservedBook(ReservedBook reservedBook);
     void deleteReservation(int id);
     void deleteUserBooks(int id);
+    void deleteBookReservations(int bookId);
     boolean validateReservation(ReservedBook reservedBook);
     boolean reservationExists(int id);
     boolean reservationExists(ReservedBook reservedBook);

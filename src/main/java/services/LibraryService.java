@@ -1,11 +1,11 @@
 package services;
 
+import models.Book;
 import models.User;
 import repositories.IBookRepository;
 import repositories.IReservedBookRepository;
 import repositories.IUserRepository;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 public class LibraryService {
@@ -38,7 +38,7 @@ public class LibraryService {
 
     public boolean deleteUser(int id) {
         if(!userRepository.userExists(id)) {
-            throw new IllegalArgumentException("User with given id:" + id + "does not exist!");
+            throw new IllegalArgumentException("User with given id:" + id + " does not exist!");
         }
 
         userRepository.deleteUser(id);
@@ -49,7 +49,7 @@ public class LibraryService {
 
     public boolean updateUser(int id, String login, String password) {
         if(!userRepository.userExists(id)) {
-            throw new IllegalArgumentException("User with given id:" + id + "does not exist!");
+            throw new IllegalArgumentException("User with given id:" + id + " does not exist!");
         }
 
         User updatedUser = new User(login, password);
@@ -82,5 +82,68 @@ public class LibraryService {
         }
 
         return userList;
+    }
+
+    //BOOK
+    public boolean addBook(String title, String author, String genre, String description) {
+        if(bookRepository.bookExists(title)) {
+            return false;
+        }
+
+        Book book = new Book(title, author, genre, description);
+        if(!bookRepository.validateBook(book)) {
+            throw new IllegalArgumentException("Book parameters are not valid!");
+        }
+
+        bookRepository.addBook(book);
+        return true;
+    }
+
+    public boolean deleteBook(int id) {
+        if(!bookRepository.bookExists(id)) {
+            throw new IllegalArgumentException("Book with given id:" + id + " does not exist!");
+        }
+
+        bookRepository.deleteBook(id);
+        reservedBookRepository.deleteBookReservations(id);
+
+        return true;
+    }
+
+    public boolean updateBook(int id, String title, String author, String genre, String description) {
+        if(!bookRepository.bookExists(id)) {
+            throw new IllegalArgumentException("Book with given id:" + id + " does not exists!");
+        }
+
+        Book updatedBook = new Book(title, author, genre, description);
+        if(!bookRepository.validateBook(updatedBook)) {
+            throw new IllegalArgumentException("Book parameters are not valid!");
+        }
+
+        Book bookToUpdateId = bookRepository.getBook(id);
+        Book bookToUpdateTitle = bookRepository.getBook(title);
+        if(bookToUpdateTitle == null || bookToUpdateId == bookToUpdateTitle) {
+            bookRepository.updateBook(id, updatedBook);
+            return true;
+        }
+        else {
+            throw new IllegalArgumentException("Book with this title already exists!");
+        }
+    }
+
+    public List<Book> getBooks() {
+        return bookRepository.getBooks();
+    }
+
+    public String booksToString() {
+        List<Book> books = bookRepository.getBooks();
+        String bookList;
+        bookList = "";
+
+        for(int i = 0; i < books.size(); i++) {
+            bookList += books.get(i).toString() + "\n";
+        }
+
+        return bookList;
     }
 }
