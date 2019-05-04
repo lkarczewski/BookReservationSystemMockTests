@@ -1,11 +1,17 @@
 package services;
 
+import helpers.DateParser;
+import helpers.ReservationIdGenerator;
 import models.Book;
+import models.ReservedBook;
 import models.User;
 import repositories.IBookRepository;
 import repositories.IReservedBookRepository;
 import repositories.IUserRepository;
+import sun.nio.ch.LinuxAsynchronousChannelProvider;
 
+import javax.naming.spi.ResolveResult;
+import java.util.Date;
 import java.util.List;
 
 public class LibraryService {
@@ -148,4 +154,51 @@ public class LibraryService {
     }
 
     //RESERVED BOOK
+    public boolean borrowBook(int userId, int bookId, String dateOfReservation) {
+        if(!userRepository.userExists(userId)) {
+            throw new SecurityException("User with given id:" + userId + " does not exists!");
+        }
+        if(!bookRepository.bookExists(bookId)) {
+            throw new SecurityException("Book with given id:" + bookId + " does not exists!");
+        }
+
+        String reservationId = ReservationIdGenerator.generateReservationId(userId, bookId, dateOfReservation);
+        Date dateObj = DateParser.parseDate(dateOfReservation);
+        ReservedBook reservedBook = new ReservedBook(userId, bookId, dateObj, reservationId);
+
+        if(!reservedBookRepository.validateReservation(reservedBook)) {
+            return false;
+        }
+        if(!reservedBookRepository.reservationExists(reservedBook)) {
+            return false;
+        }
+
+        reservedBookRepository.addReservedBook(reservedBook);
+        return true;
+    }
+
+    public boolean deleteReservation(int id) {
+        if(!reservedBookRepository.reservationExists(id)) {
+            throw new IllegalArgumentException("Reservation with givend id:" + id + " does not exist!");
+        }
+
+        reservedBookRepository.deleteReservation(id);
+        return true;
+    }
+
+    public List<ReservedBook> getReservations() {
+        return reservedBookRepository.getReservedBooks();
+    }
+
+    public String reservationsToString() {
+        List<ReservedBook> reservedBooks = reservedBookRepository.getReservedBooks();
+        String reservedBooksList;
+        reservedBooksList = "";
+
+        for(int i = 0; i < reservedBooks.size(); i++) {
+            reservedBooksList += reservedBooks.get(i).toString() + "\n";
+        }
+
+        return reservedBooksList;
+    }
 }
