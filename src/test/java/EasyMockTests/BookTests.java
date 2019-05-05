@@ -101,7 +101,17 @@ public class BookTests {
 
         assertThrows(IllegalArgumentException.class, () -> {
             service.updateBook(1, "title", "author", "genre", "desc");
+        });
+    }
 
+    @Test
+    void updateExistingBookWithInvalidDataThrowsIllegalArgumentException() {
+        expect(bookRepository.bookExists(1)).andReturn(true);
+        expect(bookRepository.validateBook(anyObject(Book.class))).andReturn(false);
+        replay(bookRepository);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.updateBook(1, "title", "author", "genre", "desc");
         });
     }
 
