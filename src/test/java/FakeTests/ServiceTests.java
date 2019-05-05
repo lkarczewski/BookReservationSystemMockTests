@@ -168,6 +168,11 @@ public class ServiceTests {
         });
     }
 
+    @Test
+    void deleteExistingBookListIsEmpty() {
+
+    }
+
     //RESERVED BOOK
 
     @AfterEach
