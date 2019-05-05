@@ -13,6 +13,7 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ServiceTests {
 
@@ -44,6 +45,13 @@ public class ServiceTests {
 
         int result = service.getUsers().size();
         assertEquals(3, result);
+    }
+
+    @Test
+    void addInvalidUserThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.addUser(null, "");
+        });
     }
 
     @AfterEach
