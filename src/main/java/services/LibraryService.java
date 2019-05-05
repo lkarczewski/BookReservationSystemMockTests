@@ -30,6 +30,10 @@ public class LibraryService {
     }
 
     //USER
+    public User logIn(String login, String password) {
+        return userRepository.getUser(login, password);
+    }
+
     public boolean addUser(String login, String password) {
         if(userRepository.userExists(login)) {
             return false;

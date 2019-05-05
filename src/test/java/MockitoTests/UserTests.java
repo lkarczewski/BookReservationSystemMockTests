@@ -11,6 +11,8 @@ import repositories.IUserRepository;
 import services.LibraryService;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
@@ -30,6 +32,22 @@ public class UserTests {
         reservedBookRepository = Mockito.mock(IReservedBookRepository.class);
         service = new LibraryService(userRepository, bookRepository, reservedBookRepository);
         user = new User();
+    }
+
+    @Test
+    void logInExistingUserReturnsUser() {
+        doReturn(user).when(userRepository).getUser(user.getLogin(), user.getPassword());
+
+        User result = service.logIn(user.getLogin(), user.getPassword());
+        assertEquals(user, result);
+    }
+
+    @Test
+    void logInNonExistingUserReturnsNull() {
+        doReturn(null).when(userRepository).getUser("login", "password");
+
+        User result = service.logIn("login", "password");
+        assertEquals(null, result);
     }
 
     @Test
@@ -94,6 +112,16 @@ public class UserTests {
         assertThrows(IllegalArgumentException.class, () -> {
             service.updateUser(1, "login", "password");
         });
+    }
+
+    @Test
+    void updateExistingUserWithNonValidDataThrowsIllegalArgumentException() {
+        doReturn(true).when(userRepository).userExists(1);
+        doReturn(false).when(userRepository).validateUser(any(User.class));
+
+        assertThatThrownBy( () -> {
+           service.updateUser(1, null, null);
+        }).isInstanceOf(IllegalArgumentException.class);
     }
 
     @AfterEach
