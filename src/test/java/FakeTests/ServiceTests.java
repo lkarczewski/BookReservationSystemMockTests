@@ -137,6 +137,13 @@ public class ServiceTests {
         assertEquals(4, result);
     }
 
+    @Test
+    void addInvalidBookThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.addBook(null, null, null, null);
+        });
+    }
+
     //RESERVED BOOK
 
     @AfterEach
