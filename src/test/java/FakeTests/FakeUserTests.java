@@ -11,7 +11,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ServiceTests {
+public class FakeUserTests {
 
     private IUserRepository userRepository;
     private IBookRepository bookRepository;
@@ -125,76 +125,6 @@ public class ServiceTests {
         String result = service.usersToString();
         assertThat(result).hasLineCount(3);
     }
-
-    //BOOK
-
-    @Test
-    void addValidBookToListBookIsOnTheList() {
-        service.addBook("Title", "Author", "Genre", "Desc");
-
-        assertThat(service.getBooks().get(0).getTitle()).matches("Title");
-    }
-
-    @Test
-    void addValidBooksGetCorrectNumberFromTheList() {
-        service.addBook("Title1", "Author1", "Genre1", "Desc1");
-        service.addBook("Title2", "Author2", "Genre2", "Desc2");
-        service.addBook("Title3", "Author3", "Genre3", "Desc3");
-        service.addBook("Title4", "Author4", "Genre4", "Desc4");
-
-        int result = service.getBooks().size();
-        assertEquals(4, result);
-    }
-
-    @Test
-    void addInvalidBookThrowsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            service.addBook(null, null, null, null);
-        });
-    }
-
-    @Test
-    void addSameBookTwiceThereIsOnlyOneOnTheList() {
-        service.addBook("Title", "Author", "Genre", "Desc");
-        service.addBook("Title", "Author", "Genre", "Desc");
-
-        int result = service.getBooks().size();
-        assertEquals(1, result);
-    }
-
-    @Test
-    void updateExistingBookWithValidData() {
-        service.addBook("Title", "Author", "Genre", "Desc");
-        service.updateBook(0, "Title2", "Author2", "Genre2", "Desc2");
-
-        assertThat(service.getBooks().get(0).getTitle()).matches("Title2");
-    }
-
-    @Test
-    void updateExistingBookWithInvalidDataThrowsIllegalArgumentException() {
-        service.addBook("Title", "Author", "Genre", "Desc");
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            service.updateBook(0, null, "", null, "");
-        });
-    }
-
-    @Test
-    void updateNonExistingBookWithInvalidDataThrowsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            service.deleteBook(1);
-        });
-    }
-
-    @Test
-    void deleteExistingBookListIsEmpty() {
-        service.addBook("Title", "Author", "Genre", "Desc");
-        service.deleteBook(0);
-
-        assertThat(service.getBooks().isEmpty()).isTrue();
-    }
-
-    //RESERVED BOOK
 
     @AfterEach
     void tearDown() {
