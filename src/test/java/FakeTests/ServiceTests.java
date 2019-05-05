@@ -80,6 +80,14 @@ public class ServiceTests {
         });
     }
 
+    @Test
+    void deleteExistingUserListIsEmpty() {
+        service.addUser("login", "password");
+        service.deleteUser(0);
+
+        assertThat(service.getUsers().isEmpty()).isTrue();
+    }
+
     @AfterEach
     void tearDown() {
         userRepository = null;

@@ -39,7 +39,7 @@ public class FakeUserRepository implements IUserRepository {
 
     @Override
     public void deleteUser(int id) {
-
+        users.removeIf(x -> x.getId() == id);
     }
 
     @Override
