@@ -119,7 +119,23 @@ public class ServiceTests {
 
     //BOOK
 
+    @Test
+    void addValidBookToListBookIsOnTheList() {
+        service.addBook("Title", "Author", "Genre", "Desc");
 
+        assertThat(service.getBooks().get(0).getTitle()).matches("Title");
+    }
+
+    @Test
+    void addValidBooksGetCorrectNumberFromTheList() {
+        service.addBook("Title1", "Author1", "Genre1", "Desc1");
+        service.addBook("Title2", "Author2", "Genre2", "Desc2");
+        service.addBook("Title3", "Author3", "Genre3", "Desc3");
+        service.addBook("Title4", "Author4", "Genre4", "Desc4");
+
+        int result = service.getBooks().size();
+        assertEquals(4, result);
+    }
 
     //RESERVED BOOK
 
