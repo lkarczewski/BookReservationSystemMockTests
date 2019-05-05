@@ -4,7 +4,12 @@ import models.ReservedBook;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import repositories.*;
+import repositories.FakeUserRepository;
+import repositories.FakeBookRepository;
+import repositories.FakeReservedBookRepository;
+import repositories.IBookRepository;
+import repositories.IReservedBookRepository;
+import repositories.IUserRepository;
 import services.LibraryService;
 
 import java.util.List;
@@ -108,7 +113,7 @@ public class FakeReservedBookTests {
     }
 
     @Test
-    public void getReservationsByUserIdReturnsFilteredListWithGivenUserId(){
+    void getReservationsByUserIdReturnsFilteredListWithGivenUserId(){
         service.addUser("login1", "password1");
         service.addUser("login2", "password2");
         service.addBook("Title1", "Author1", "Genre1", "Desc1");
@@ -123,7 +128,7 @@ public class FakeReservedBookTests {
     }
 
     @Test
-    public void getReservationsToStringReturnsStringWithAllReservations(){
+    void getReservationsToStringReturnsStringWithAllReservations(){
         service.addUser("login1", "password1");
         service.addUser("login2", "password2");
         service.addBook("Title1", "Author1", "Genre1", "Desc1");
