@@ -1,4 +1,4 @@
-package mockitoTests;
+package mockitos;
 
 import models.ReservedBook;
 import models.User;

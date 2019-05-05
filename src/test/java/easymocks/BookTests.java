@@ -1,4 +1,4 @@
-package easyMockTests;
+package easymocks;
 
 import models.Book;
 import org.easymock.EasyMock;
