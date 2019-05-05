@@ -107,6 +107,16 @@ public class ServiceTests {
         assertThat(loggedUser).isNull();
     }
 
+    @Test
+    void usersToStringReturnsStringWithAllUsers(){
+        service.addUser("login1", "password1");
+        service.addUser("login2", "password2");
+        service.addUser("login3", "password3");
+
+        String result = service.usersToString();
+        assertThat(result).hasLineCount(3);
+    }
+
     //BOOK
 
     //RESERVED BOOK
