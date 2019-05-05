@@ -164,18 +164,21 @@ public class LibraryService {
             throw new SecurityException("Book with given id:" + bookId + " does not exists!");
         }
 
+        Book book = bookRepository.getBook(bookId);
         String reservationId = ReservationIdGeneratorHelper.generateReservationId(userId, bookId, dateOfReservation);
         Date dateObj = DateParserHelper.parseDate(dateOfReservation);
-        ReservedBook reservedBook = new ReservedBook(userId, bookId, dateObj, reservationId);
 
-        if(!reservedBookRepository.validateReservation(reservedBook)) {
+        if(!reservedBookRepository.validateReservation(book, dateObj, reservationId)) {
             return false;
         }
-//        if(!reservedBookRepository.reservationExists(reservationId)) {
-//            return false;
-//        }
 
-        reservedBookRepository.addReservedBook(reservedBook);
+        ReservedBook reservedBook = new ReservedBook(userId, bookId, dateObj, reservationId);
+
+        if(reservedBookRepository.reservationExists(reservedBook)) {
+            return false;
+        }
+
+        reservedBookRepository.addReservedBook(new ReservedBook(userId, bookId, dateObj, reservationId));
         return true;
     }
 

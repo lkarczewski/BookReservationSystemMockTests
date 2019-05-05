@@ -1,9 +1,11 @@
 package repositories;
 
 import helpers.ReservedBookValidatorHelper;
+import models.Book;
 import models.ReservedBook;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,8 +45,8 @@ public class FakeReservedBookRepository implements IReservedBookRepository {
     }
 
     @Override
-    public boolean validateReservation(ReservedBook reservedBook) {
-        return ReservedBookValidatorHelper.validate(reservedBook);
+    public boolean validateReservation(Book book, Date dateOfReservation, String reservationId) {
+        return ReservedBookValidatorHelper.validate(book, dateOfReservation, reservationId);
     }
 
     @Override
@@ -53,7 +55,7 @@ public class FakeReservedBookRepository implements IReservedBookRepository {
     }
 
     @Override
-    public boolean reservationExists(String reservationId) {
-        return reservedBooks.stream().anyMatch(x -> x.getReservationId().contains(reservationId));
+    public boolean reservationExists(ReservedBook reservedBook) {
+        return reservedBooks.stream().anyMatch(x -> x.getReservationId().contains(reservedBook.getReservationId()));
     }
 }

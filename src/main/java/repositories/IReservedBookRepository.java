@@ -1,6 +1,9 @@
 package repositories;
 
+import models.Book;
 import models.ReservedBook;
+
+import java.util.Date;
 import java.util.List;
 
 public interface IReservedBookRepository {
@@ -11,7 +14,7 @@ public interface IReservedBookRepository {
     void deleteReservation(int id);
     void deleteUserBooks(int id);
     void deleteBookReservations(int bookId);
-    boolean validateReservation(ReservedBook reservedBook);
+    boolean validateReservation(Book book, Date dateOfReservation, String reservationId);
     boolean reservationExists(int id);
-    boolean reservationExists(String reservationId);
+    boolean reservationExists(ReservedBook reservedBook);
 }
