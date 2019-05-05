@@ -1,5 +1,6 @@
 package FakeTests;
 
+import models.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -89,6 +90,21 @@ public class ServiceTests {
         assertThrows(IllegalArgumentException.class, () -> {
             service.deleteUser(1);
         });
+    }
+
+    @Test
+    void logInExistingUserReturnsThisUser() {
+        service.addUser("login", "password");
+        User loggedUser = service.logIn("login", "password");
+
+        assertThat(loggedUser).isNotNull();
+    }
+
+    @Test
+    void logInNonExistingUserReturnsNull() {
+        User loggedUser = service.logIn("login", "password");
+
+        assertThat(loggedUser).isNull();
     }
 
     //BOOK

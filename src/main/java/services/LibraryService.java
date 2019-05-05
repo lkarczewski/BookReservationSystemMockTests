@@ -211,7 +211,7 @@ public class LibraryService {
 
     public boolean deleteReservation(int id) {
         if(!reservedBookRepository.reservationExists(id)) {
-            throw new IllegalArgumentException("Reservation with givend id:" + id + " does not exist!");
+            throw new IllegalArgumentException("Reservation with given id:" + id + " does not exist!");
         }
 
         reservedBookRepository.deleteReservation(id);
