@@ -161,6 +161,13 @@ public class ServiceTests {
         });
     }
 
+    @Test
+    void updateNonExistingBookWithInvalidDataThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.deleteBook(1);
+        });
+    }
+
     //RESERVED BOOK
 
     @AfterEach
