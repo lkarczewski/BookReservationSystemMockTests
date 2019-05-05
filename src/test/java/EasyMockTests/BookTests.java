@@ -115,6 +115,21 @@ public class BookTests {
         });
     }
 
+    @Test
+    void updateBookWithExistingDataThrowsIllegalArgumentException() {
+        Book book2 = new Book();
+
+        expect(bookRepository.bookExists(1)).andReturn(true);
+        expect(bookRepository.validateBook(anyObject(Book.class))).andReturn(true);
+        expect(bookRepository.getBook(1)).andReturn(book);
+        expect(bookRepository.getBook("Title")).andReturn(book2);
+        replay(bookRepository);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.updateBook(1, "Title", "Author", "Genre", "Desc");
+        });
+    }
+
     @AfterEach
     void tearDown() {
         userRepository = null;
