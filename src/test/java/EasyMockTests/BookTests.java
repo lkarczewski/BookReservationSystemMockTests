@@ -83,6 +83,18 @@ public class BookTests {
         }).isInstanceOf(IllegalArgumentException.class);
     }
 
+    @Test
+    void updateExistingBookWithValidDataReturnsTrue() {
+        expect(bookRepository.bookExists(1)).andReturn(true);
+        expect(bookRepository.validateBook(anyObject(Book.class))).andReturn(true);
+        expect(bookRepository.getBook(1)).andReturn(book);
+        expect(bookRepository.getBook(book.getTitle())).andReturn(book);
+        replay(bookRepository);
+
+        boolean result = service.updateBook(1, "newTitle", "newAuthor", "newGenre", "newDesc");
+        assertThat(result).isTrue();
+    }
+
     @AfterEach
     void tearDown() {
         userRepository = null;
