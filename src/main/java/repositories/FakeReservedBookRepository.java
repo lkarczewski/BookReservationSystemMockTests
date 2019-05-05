@@ -53,8 +53,7 @@ public class FakeReservedBookRepository implements IReservedBookRepository {
     }
 
     @Override
-    public boolean reservationExists(ReservedBook reservedBook) {
-        return reservedBooks.stream().anyMatch(x -> x.getId() == reservedBook.getId() &&
-                x.getDateOfReservation().equals(reservedBook.getDateOfReservation()));
+    public boolean reservationExists(String reservationId) {
+        return reservedBooks.stream().anyMatch(x -> x.getReservationId().contains(reservationId));
     }
 }

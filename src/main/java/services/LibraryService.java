@@ -171,9 +171,9 @@ public class LibraryService {
         if(!reservedBookRepository.validateReservation(reservedBook)) {
             return false;
         }
-        if(!reservedBookRepository.reservationExists(reservedBook)) {
-            return false;
-        }
+//        if(!reservedBookRepository.reservationExists(reservationId)) {
+//            return false;
+//        }
 
         reservedBookRepository.addReservedBook(reservedBook);
         return true;

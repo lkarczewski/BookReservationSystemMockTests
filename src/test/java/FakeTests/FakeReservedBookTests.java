@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import repositories.*;
 import services.LibraryService;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FakeReservedBookTests {
@@ -28,8 +29,17 @@ public class FakeReservedBookTests {
         service.addUser("login", "password");
         service.addBook("Title", "Author", "Genre", "Desc");
 
-        boolean result = service.borrowBook(0,0, "01/01/2019");
+        boolean result = service.borrowBook(0,0, "01.01.2019");
         assertTrue(result);
+    }
+
+    @Test
+    void borrowBookUserDoesNotExistsThrowsSecurityException() {
+        service.addBook("Title", "Author", "Genre", "Desc");
+
+        assertThrows(SecurityException.class, () -> {
+            service.borrowBook(0,0, "01.01.2019");service.borrowBook(0,0, "01.01.2019");
+        });
     }
 
     @AfterEach

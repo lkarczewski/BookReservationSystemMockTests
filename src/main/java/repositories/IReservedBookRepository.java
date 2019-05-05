@@ -13,5 +13,5 @@ public interface IReservedBookRepository {
     void deleteBookReservations(int bookId);
     boolean validateReservation(ReservedBook reservedBook);
     boolean reservationExists(int id);
-    boolean reservationExists(ReservedBook reservedBook);
+    boolean reservationExists(String reservationId);
 }
