@@ -67,7 +67,7 @@ public class LibraryService {
 
         User userToUpdateId = userRepository.getUser(id);
         User userToUpdateLogin = userRepository.getUser(login);
-        if(userToUpdateLogin == null || userToUpdateId == userToUpdateLogin) {
+        if(userToUpdateLogin == null || userToUpdateId.equals(userToUpdateLogin)) {
             userRepository.updateUser(id, updatedUser);
             return true;
         }
@@ -130,7 +130,7 @@ public class LibraryService {
 
         Book bookToUpdateId = bookRepository.getBook(id);
         Book bookToUpdateTitle = bookRepository.getBook(title);
-        if(bookToUpdateTitle == null || bookToUpdateId == bookToUpdateTitle) {
+        if(bookToUpdateTitle == null || bookToUpdateId.equals(bookToUpdateTitle)) {
             bookRepository.updateBook(id, updatedBook);
             return true;
         }
