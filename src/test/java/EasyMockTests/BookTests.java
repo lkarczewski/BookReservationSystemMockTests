@@ -95,6 +95,16 @@ public class BookTests {
         assertThat(result).isTrue();
     }
 
+    @Test
+    void updateNonExistingBookThrowsIllegalArgumentException() {
+        expect(bookRepository.bookExists(1)).andReturn(false);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.updateBook(1, "title", "author", "genre", "desc");
+
+        });
+    }
+
     @AfterEach
     void tearDown() {
         userRepository = null;
