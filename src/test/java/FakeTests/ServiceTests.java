@@ -144,6 +144,14 @@ public class ServiceTests {
         });
     }
 
+    @Test
+    void updateExistingBookWithValidData() {
+        service.addBook("Title", "Author", "Genre", "Desc");
+        service.updateBook(0, "Title2", "Author2", "Genre2", "Desc2");
+
+        assertThat(service.getBooks().get(0).getTitle()).matches("Title2");
+    }
+
     //RESERVED BOOK
 
     @AfterEach
