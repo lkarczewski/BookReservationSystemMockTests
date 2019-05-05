@@ -71,6 +71,15 @@ public class ServiceTests {
         });
     }
 
+    @Test
+    void updateNonExistingUserThrowsIllegalArgumentException() {
+        service.addUser("login", "password");
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.updateUser(1, "login1", "password");
+        });
+    }
+
     @AfterEach
     void tearDown() {
         userRepository = null;
