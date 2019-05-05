@@ -44,7 +44,7 @@ public class FakeUserRepository implements IUserRepository {
 
     @Override
     public void updateUser(int id, User user) {
-
+        users.stream().filter(x -> x.getId() == id).findFirst().ifPresent(u -> users.set(users.indexOf(u), new User(id, user)));
     }
 
     @Override
@@ -54,11 +54,11 @@ public class FakeUserRepository implements IUserRepository {
 
     @Override
     public boolean userExists(int id) {
-        return false;
+        return users.stream().anyMatch(x -> x.getId() == id);
     }
 
     @Override
     public boolean userExists(String login) {
-        return false;
+        return users.stream().anyMatch(x -> x.getLogin().equals(login));
     }
 }

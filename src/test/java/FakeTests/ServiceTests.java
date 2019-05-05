@@ -54,6 +54,14 @@ public class ServiceTests {
         });
     }
 
+    @Test
+    void updateExistingUserWithValidData() {
+        service.addUser("login", "password");
+        service.updateUser(0, "login2", "password");
+
+        assertThat(service.getUsers().get(0).getLogin()).matches("login2");
+    }
+
     @AfterEach
     void tearDown() {
         userRepository = null;
