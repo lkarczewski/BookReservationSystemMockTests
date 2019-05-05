@@ -1,33 +1,40 @@
 package repositories;
 
+import helpers.UserValidatorHelper;
 import models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FakeUserRepository implements IUserRepository {
+    private List<User> users = new ArrayList<>();
+    private int id = 0;
+
     @Override
     public List getUsers() {
-        return null;
+        return users;
     }
 
     @Override
     public User getUser(int id) {
-        return null;
+        return users.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
     }
 
     @Override
     public User getUser(String login) {
-        return null;
+        return users.stream().filter(x -> x.getLogin().equals(login)).findFirst().orElse(null);
     }
 
     @Override
     public User getUser(String login, String password) {
-        return null;
+        return users.stream().filter(x -> x.getLogin().equals(login) && x.getPassword().equals(password)).
+                findFirst().orElse(null);
     }
 
     @Override
     public void addUser(User user) {
-
+        users.add(new User(id, user));
+        id++;
     }
 
     @Override
@@ -42,7 +49,7 @@ public class FakeUserRepository implements IUserRepository {
 
     @Override
     public boolean validateUser(User user) {
-        return false;
+        return UserValidatorHelper.validate(user);
     }
 
     @Override
