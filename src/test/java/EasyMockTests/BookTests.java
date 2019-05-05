@@ -10,6 +10,7 @@ import repositories.IReservedBookRepository;
 import repositories.IUserRepository;
 import services.LibraryService;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.easymock.EasyMock.anyObject;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
@@ -53,7 +54,23 @@ public class BookTests {
         });
     }
 
-    
+    @Test
+    void addBookAlreadyExistsReturnsFalse() {
+        expect(bookRepository.bookExists(book.getTitle())).andReturn(true);
+        replay(bookRepository);
+
+        boolean result = service.addBook(book.getTitle(), book.getTitle(), book.getGenre(), book.getDescription());
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    void deleteExistingBookReturnsTrue() {
+        expect(bookRepository.bookExists(1)).andReturn(true);
+        replay(bookRepository);
+
+        boolean result = service.deleteBook(1);
+        assertThat(result).isTrue();
+    }
 
     @AfterEach
     void tearDown() {
