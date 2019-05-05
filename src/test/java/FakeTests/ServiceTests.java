@@ -152,6 +152,15 @@ public class ServiceTests {
         assertThat(service.getBooks().get(0).getTitle()).matches("Title2");
     }
 
+    @Test
+    void updateExistingBookWithInvalidDataThrowsIllegalArgumentException() {
+        service.addBook("Title", "Author", "Genre", "Desc");
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.updateBook(0, null, "", null, "");
+        });
+    }
+
     //RESERVED BOOK
 
     @AfterEach
