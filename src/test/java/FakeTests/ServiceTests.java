@@ -62,6 +62,15 @@ public class ServiceTests {
         assertThat(service.getUsers().get(0).getLogin()).matches("login2");
     }
 
+    @Test
+    void updateExistingUserWithInvalidDataThrowsIllegalArgumentException() {
+        service.addUser("login", "password");
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.updateUser(0, "", null);
+        });
+    }
+
     @AfterEach
     void tearDown() {
         userRepository = null;
