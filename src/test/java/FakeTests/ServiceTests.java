@@ -45,6 +45,15 @@ public class ServiceTests {
     }
 
     @Test
+    void addSameUserTwiceThereIsOnlyOneOnTheList() {
+        service.addUser("login", "password");
+        service.addUser("login", "password");
+
+        int result = service.getUsers().size();
+        assertEquals(1, result);
+    }
+
+    @Test
     void addInvalidUserThrowsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> {
             service.addUser(null, "");
@@ -145,6 +154,15 @@ public class ServiceTests {
     }
 
     @Test
+    void addSameBookTwiceThereIsOnlyOneOnTheList() {
+        service.addBook("Title", "Author", "Genre", "Desc");
+        service.addBook("Title", "Author", "Genre", "Desc");
+
+        int result = service.getBooks().size();
+        assertEquals(1, result);
+    }
+
+    @Test
     void updateExistingBookWithValidData() {
         service.addBook("Title", "Author", "Genre", "Desc");
         service.updateBook(0, "Title2", "Author2", "Genre2", "Desc2");
@@ -170,7 +188,10 @@ public class ServiceTests {
 
     @Test
     void deleteExistingBookListIsEmpty() {
+        service.addBook("Title", "Author", "Genre", "Desc");
+        service.deleteBook(0);
 
+        assertThat(service.getBooks().isEmpty()).isTrue();
     }
 
     //RESERVED BOOK
