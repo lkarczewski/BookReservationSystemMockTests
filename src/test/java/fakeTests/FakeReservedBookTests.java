@@ -1,4 +1,4 @@
-package FakeTests;
+package fakeTests;
 
 import models.ReservedBook;
 import org.junit.jupiter.api.AfterEach;

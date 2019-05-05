@@ -1,4 +1,4 @@
-package FakeTests;
+package fakeTests;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
