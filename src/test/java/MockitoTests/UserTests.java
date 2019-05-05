@@ -1,5 +1,6 @@
 package MockitoTests;
 
+import models.ReservedBook;
 import models.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,10 +11,12 @@ import repositories.IReservedBookRepository;
 import repositories.IUserRepository;
 import services.LibraryService;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
@@ -47,7 +50,7 @@ public class UserTests {
         doReturn(null).when(userRepository).getUser("login", "password");
 
         User result = service.logIn("login", "password");
-        assertEquals(null, result);
+        assertNull(result);
     }
 
     @Test
@@ -122,6 +125,39 @@ public class UserTests {
         assertThatThrownBy( () -> {
            service.updateUser(1, null, null);
         }).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void updateUserWithExistingDataThrowsIllegalArgumentException() {
+        User user2 = new User();
+
+        doReturn(true).when(userRepository).userExists(1);
+        doReturn(true).when(userRepository).validateUser(any(User.class));
+        doReturn(user).when(userRepository).getUser(1);
+        doReturn(user2).when(userRepository).getUser("login");
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.updateUser(1, "login", "password");
+        });
+    }
+
+    @Test
+    void getReservedBooksByUserWithValidArgumentsReturnsCorrectNumberOfElements() {
+        ReservedBook rb1 = new ReservedBook();
+        ReservedBook rb2 = new ReservedBook();
+
+        doReturn(Arrays.asList(rb1, rb2)).when(reservedBookRepository).getReservedBooksByUser(user.getId());
+        int result = service.getReservationsByUser(user.getId()).size();
+
+        assertEquals(result, 2);
+    }
+
+    @Test
+    void getReservedBooksByUserWithNoReservationsReturnsEmptyList() {
+        doReturn(Arrays.asList()).when(reservedBookRepository).getReservedBooksByUser(user.getId());
+        int result = service.getReservationsByUser(user.getId()).size();
+
+        assertEquals(result, 0);
     }
 
     @AfterEach

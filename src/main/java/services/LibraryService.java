@@ -222,6 +222,10 @@ public class LibraryService {
         return reservedBookRepository.getReservedBooks();
     }
 
+    public List<ReservedBook> getReservationsByUser(int id) {
+        return reservedBookRepository.getReservedBooksByUser(id);
+    }
+
     public String reservationsToString() {
         List<ReservedBook> reservedBooks = reservedBookRepository.getReservedBooks();
         String reservedBooksList;

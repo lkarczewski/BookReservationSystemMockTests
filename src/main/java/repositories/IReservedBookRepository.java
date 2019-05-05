@@ -7,7 +7,6 @@ public interface IReservedBookRepository {
 
     List getReservedBooks();
     List getReservedBooksByUser(int id);
-    List getReservationsByBook(int id);
     void addReservedBook(ReservedBook reservedBook);
     void deleteReservation(int id);
     void deleteUserBooks(int id);
