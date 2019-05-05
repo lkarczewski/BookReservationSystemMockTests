@@ -61,7 +61,7 @@ public class FakeReservedBookTests {
         service.addUser("login", "password");
         service.addBook("Title", "Author", "Genre", "Desc");
 
-        boolean result = service.borrowBook(0,0, "aaaaaaaa");
+        boolean result = service.borrowBook(0, 0, "aaaaaaaa");
         assertFalse(result);
     }
 

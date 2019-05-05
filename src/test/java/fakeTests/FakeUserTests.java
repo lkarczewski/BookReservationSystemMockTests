@@ -1,11 +1,14 @@
 package fakeTests;
 
+import models.ReservedBook;
 import models.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repositories.*;
 import services.LibraryService;
+
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -99,6 +102,17 @@ public class FakeUserTests {
         assertThrows(IllegalArgumentException.class, () -> {
             service.deleteUser(1);
         });
+    }
+
+    @Test
+    void deleteUserWithBorrowedBooksReservationsAreDeleted() {
+        service.addUser("login", "password");
+        service.addBook("Title", "Author", "Genre", "Desc");
+        service.borrowBook(0,0, "01.01.2019");
+        service.deleteUser(0);
+
+        List<ReservedBook> result = service.getReservations();
+        assertThat(result.size()).isEqualTo(0);
     }
 
     @Test

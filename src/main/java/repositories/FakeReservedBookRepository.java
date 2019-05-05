@@ -35,13 +35,13 @@ public class FakeReservedBookRepository implements IReservedBookRepository {
     }
 
     @Override
-    public void deleteUserBooks(int id) {
-        reservedBooks.removeIf(x -> x.getId() == id);
+    public void deleteUserBooks(int userId) {
+        reservedBooks.removeIf(x -> x.getUserId() == userId);
     }
 
     @Override
     public void deleteBookReservations(int bookId) {
-        reservedBooks.removeIf(x -> x.getId() == id);
+        reservedBooks.removeIf(x -> x.getBookId() == bookId);
     }
 
     @Override

@@ -12,7 +12,7 @@ public interface IReservedBookRepository {
     List getReservedBooksByUser(int id);
     void addReservedBook(ReservedBook reservedBook);
     void deleteReservation(int id);
-    void deleteUserBooks(int id);
+    void deleteUserBooks(int userId);
     void deleteBookReservations(int bookId);
     boolean validateReservation(Book book, Date dateOfReservation, String reservationId);
     boolean reservationExists(int id);
