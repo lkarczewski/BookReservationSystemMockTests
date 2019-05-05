@@ -1,15 +1,10 @@
 package FakeTests;
 
-import models.Book;
-import models.ReservedBook;
-import models.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repositories.*;
 import services.LibraryService;
-
-import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,6 +25,7 @@ public class ServiceTests {
         service = new LibraryService(userRepository, bookRepository, reservedBookRepository);
     }
 
+    //USER
     @Test
     void addValidUserToListUserIsOnTheList() {
         service.addUser("login", "password");
@@ -87,6 +83,17 @@ public class ServiceTests {
 
         assertThat(service.getUsers().isEmpty()).isTrue();
     }
+
+    @Test
+    void deleteNonExistingUserThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.deleteUser(1);
+        });
+    }
+
+    //BOOK
+
+    //RESERVED BOOK
 
     @AfterEach
     void tearDown() {
