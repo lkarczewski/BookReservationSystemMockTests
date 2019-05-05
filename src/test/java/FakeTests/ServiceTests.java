@@ -9,7 +9,10 @@ import org.junit.jupiter.api.Test;
 import repositories.*;
 import services.LibraryService;
 
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ServiceTests {
 
@@ -31,6 +34,16 @@ public class ServiceTests {
         service.addUser("login", "password");
 
         assertThat(service.getUsers().get(0).getLogin()).matches("login");
+    }
+
+    @Test
+    void addValidUsersGetCorrectNumberFromTheList() {
+        service.addUser("login1", "password1");
+        service.addUser("login2", "password2");
+        service.addUser("login3", "password3");
+
+        int result = service.getUsers().size();
+        assertEquals(3, result);
     }
 
     @AfterEach
