@@ -11,6 +11,7 @@ import repositories.IUserRepository;
 import services.LibraryService;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.easymock.EasyMock.anyObject;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
@@ -70,6 +71,16 @@ public class BookTests {
 
         boolean result = service.deleteBook(1);
         assertThat(result).isTrue();
+    }
+
+    @Test
+    void deleteNonExistingBookThrowsIllegalArgumentException() {
+        expect(bookRepository.bookExists(1)).andReturn(false);
+        replay(bookRepository);
+
+        assertThatThrownBy( () -> {
+            service.deleteBook(1);
+        }).isInstanceOf(IllegalArgumentException.class);
     }
 
     @AfterEach
