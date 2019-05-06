@@ -4,7 +4,7 @@ Jest to repozytorium z użyciem GitFlow.
 
 ## Codacy [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7ce68df3025346aa839866533d5ce652)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=testowanieaplikacjijavaug/projekt2-lkarczewski&amp;utm_campaign=Badge_Grade)
 
-### Projekt 5 (18 pkt)
+### Projekt 4 (18 pkt)
 
 Przetestuj system rezerwacji z poprzedniego projektu, zakładając, że wszystko odbywa się w jakimś systemie bazodanowym. Na przykład mogą się zdarzyć następujące sytuacje:
 
