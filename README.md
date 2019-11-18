@@ -1,4 +1,4 @@
-# projekt2-lkarczewski
+# Book reservation system tests using mocks (technologies used: Mockito, EasyMock)
 Jest to repozytorium z użyciem GitFlow.
 ## Travis CI [![Build Status](https://travis-ci.com/testowanieaplikacjijavaug/projekt2-lkarczewski.svg?token=1GLazZGrwXcNFBLzNe2m&branch=master)](https://travis-ci.com/testowanieaplikacjijavaug/projekt2-lkarczewski)
 
